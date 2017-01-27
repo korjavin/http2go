@@ -65,28 +65,3 @@ func itob(v int64) []byte {
 func btoi(b []byte) int64 {
 	return int64(binary.BigEndian.Uint64(b))
 }
-
-// func addmsg(m *msg) error {
-//
-// 	return db.Update(func(tx *bolt.Tx) error {
-// 		b, err := tx.CreateBucketIfNotExists([]byte("posts"))
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return b.Put([]byte("2015-01-01"), []byte("My New Year post"))
-//
-// 		//	_, err := tx.CreateBucketIfNotExists([]byte("msg"))
-// 		//	if err != nil {
-// 		//		return err
-// 		//	}
-//
-// 		// buf, err := json.Marshal(&m)
-// 		// if err != nil {
-// 		// 	return err
-// 		// }
-// 		// log.Println(buf)
-//
-// 		return nil
-// 		//	return b.Put([]byte(m.regdt.Format(time.RFC3339)), buf)
-// 	})
-// }
