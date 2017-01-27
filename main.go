@@ -1,14 +1,26 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+	"time"
 )
+
+type msg struct {
+	regdt time.Time
+	rec   string
+	text  string
+}
 
 func getmsg(w http.ResponseWriter, r *http.Request) {
 	rec := r.FormValue("rec")
 	text := r.FormValue("text")
-	fmt.Println(rec, text)
+	m := msg{regdt: time.Now(), rec: rec, text: text}
+	log.Printf("Recieved message: %v", m)
+	err := send(m)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func main() {
