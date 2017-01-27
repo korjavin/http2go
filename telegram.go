@@ -5,6 +5,7 @@ import (
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
 	"os"
+	"strconv"
 )
 
 type user struct {
@@ -39,7 +40,8 @@ func bot_go() {
 		}
 
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-		codename := update.Message.From.FirstName + "_" + update.Message.From.LastName
+		// codename := update.Message.From.FirstName + "_" + update.Message.From.LastName
+		codename := strconv.Itoa(update.Message.From.ID)
 		newuser := user{last_name: update.Message.From.LastName, first_name: update.Message.From.FirstName, chat_id: update.Message.Chat.ID}
 		users[codename] = newuser
 		err := saveuser(newuser)
@@ -47,7 +49,7 @@ func bot_go() {
 			log.Panic(err)
 		}
 
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Ваш ИД для этого бота: "+codename+" \n Укажите его в настройках \n Поле (телефон3) в UserSide \n Настройки пользователя оповещения - телеграм в zabbix \n  что бы получать сообщения")
 		msg.ReplyToMessageID = update.Message.MessageID
 
 		bot.Send(msg)
